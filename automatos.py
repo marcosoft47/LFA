@@ -160,7 +160,7 @@ caso2A = Automato(
 caso2B = Automato(
     nome='Caso 2B',
     alfabeto=['c','b','d','p'],
-    estados=['A','c2c','c2b','c4c','c4b','r3','p2','p3'],
+    estados=['B','c2c','c2b','c4c','c4b','r3','p2','p3'],
     programa=[[None,'c2c',None,'p2'],
               [None,'c4c','p3',None],
               ['p2',None,'p3',None],
