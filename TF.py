@@ -11,8 +11,7 @@ MAXIMOPILHA = 5
 carros: list[Automato]
 carros = []
 
-nFim = 0
-count = 0
+
 fita = ''
 
 def verificaSemaforo(estadoAtual:str, semaforo:list):
@@ -39,7 +38,7 @@ def informarCarros(auto:bool):
     print('5 - Caso 2A')
     print('6 - Caso 2B')
     print('7 - Caso 2C')
-    print('8 - Caso 2C')
+    print('8 - Caso 2D')
     print('9 - Caso Completo')
     print('0 - Fim escolhas')
 
@@ -60,6 +59,52 @@ def informarCarros(auto:bool):
         print()
     return carros
 
+def simular(carros:list[Automato],auto:bool):
+    nFim = 0
+    count = 0
+    continuar = True
+    while continuar:
+        print(f"\nLoop {count+1}")
+        for i in carros:
+            if i.finalizou:
+                continue
+            print(f'Carro atual: {i.nome} -> ', end='')
+            
+            if auto:
+                i.sorteiaCaminho()
+            else:
+                if not i.fita[count] in i.alfabeto:
+                    print(f'Elemento {i.fita[count]} não pertence no alfabeto de {i.nome}')
+                    i.finalizou = True
+                    nFim += 1
+                    continue
+                i.percorrer(i.fita[count])
+                if len(i.fita) <= count+1:
+                    print(f'Fim da fita do {i.nome}')
+                    i.finalizou = True
+                    nFim += 1
+                    continue
+
+            print(i.estadoAtual)
+
+            if i.estadoAtual == None:
+                print(f'Caminho inválido para o {i.nome}!')
+                i.finalizou = True
+                continue
+
+            verificaSemaforo(i.estadoAtual, semaforo)
+            if i.ehEstadoFinal():
+                i.finalizou = True
+                nFim += 1
+                print('FIM')
+
+        for i in carros:
+            if i.finalizou == False:
+                break
+        else:
+            continuar = False
+        count += 1
+
 print('Simulador automato com pilhas')
 print('Deseja fazer um teste automático (e aleatório), ou manual?')
 print('(1) Teste Manual\n(2) Teste automático')
@@ -72,42 +117,7 @@ if escolha == 1:
     print('Começando teste:')
 
 
-    count = 0
-    while True:
-        print(f"Loop {count+1}")
-        for i in carros:
-            if i.finalizou:
-                continue
-
-            print(f'Carro atual: {i.nome} -> ', end='')
-
-            if not i.fita[count] in i.alfabeto:
-                print(f'Elemento {i.fita[count]} não pertence no alfabeto de {i.nome}')
-                i.finalizou = True
-                nFim += 1
-                continue
-
-            i.percorrer(i.fita[count])
-            print(i.estadoAtual)
-
-            if i.estadoAtual == None:
-                print(f'Caminho inválido para o {i.nome}!')
-                i.finalizou = True
-
-            verificaSemaforo(i.estadoAtual, semaforo)
-            if len(i.fita) <= count+1:
-                print(f'Fim da fita do {i.nome}')
-                i.finalizou = True
-                nFim += 1
-                continue
-            if i.ehEstadoFinal():
-                i.finalizou = True
-                nFim += 1
-                print('FIM')
-        if nFim >= len(carros):
-            break
-
-        count += 1
+    simular(carros,False)
         
 
 
@@ -126,23 +136,7 @@ elif escolha == 2:
 
     print()
     print()
-    while True:
-        count += 1
-        print(f"Loop {count}")
-        for i in carros:
-            if i.ehEstadoFinal():
-                continue
-            print(f'Carro atual: {i.nome} -> ', end='')
-            i.sorteiaCaminho()
-            print(i.estadoAtual)
-            verificaSemaforo(i.estadoAtual, semaforo)
-            if i.ehEstadoFinal():
-                nFim += 1
-                print('FIM')
-                break
-        print(nFim)
-        if nFim >= len(carros):
-            break
+    simular(carros,True)
 
     print('Fitas:')
     for i in carros:

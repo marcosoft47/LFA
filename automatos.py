@@ -180,7 +180,7 @@ caso2C = Automato(
 caso2D = Automato(
     nome='Caso 2D',
     alfabeto=['c','b','e'],
-    estados=['D','c1b','c3b','c3d','c4d','r2','p5'],
+    estados=['D','c1b','c3b','c3d','c4d','r2','p1','p5'],
     programa=[
         [None,None,'c4d'],
         ['p1',None,None],
@@ -191,7 +191,7 @@ caso2D = Automato(
         [None,None,None]
     ],
     inicial='D',
-    final=['p5']
+    final=['p1','p5']
 )
 
 # Caso 3
