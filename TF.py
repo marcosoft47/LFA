@@ -50,7 +50,7 @@ def informarCarros(auto:bool):
         if escolha == 0:
             break
         count += 1
-        carros.append(escolhasAutomatos[escolha-1])
+        carros.append(deepcopy(escolhasAutomatos[escolha-1]))
         if escolha == len(escolhasAutomatos):
             escolha = input('Escolha qual será o estado inicial (A, B, C ou D): ')
             carros[-1].inicial = escolha.capitalize()
@@ -140,6 +140,7 @@ elif escolha == 2:
                 nFim += 1
                 print('FIM')
                 break
+        print(nFim)
         if nFim >= len(carros):
             break
 
