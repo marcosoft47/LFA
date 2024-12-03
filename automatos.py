@@ -14,20 +14,6 @@ class Automato():
         self.finalizou = False
         
         self.estadoAtual = inicial
-
-    # def __deepcopy__(self, memo): # memo is a dict of id's to copies
-    #     id_self = id(self)        # memoization avoids unnecesary recursion
-    #     _copy = memo.get(id_self)
-    #     if _copy is None:
-    #         _copy = type(self)(
-    #             nome=deepcopy(self.nome, memo), 
-    #             estados=deepcopy(self.estados, memo),
-    #             programa=deepcopy(self.programa, memo),
-    #             inicial=deepcopy(self.inicial, memo),
-    #             final=deepcopy(self.final, memo),
-    #             alfabeto=deepcopy(self.alfabeto, memo))
-    #         memo[id_self] = _copy 
-    #     return _copy
     
     def proximoEstado(self, caminho: str) -> str:
         '''
