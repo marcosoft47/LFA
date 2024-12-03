@@ -113,7 +113,7 @@ if escolha == 1:
 
 elif escolha == 2:
     print('Teste automático')
-    input('Definir automaticamente os casos?\n1 - Sim\n2 - Não')
+    escolha = int(input('Definir automaticamente os casos?\n1 - Sim\n2 - Não\n'))
 
     if escolha == 1:
         qnt = int(input('Informe quantos carros você quer simular: '))
